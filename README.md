@@ -16,6 +16,16 @@ Some additional work has been done aside from working through the examples in
 the book. All of the info in this README applies to the additonal examples
 unless otherwise noted.
 
+## Dependencies
+
+TODO
+
+<https://glad.dav1d.de/>
+
+<https://selamjie.medium.com/set-opengl-on-macos-with-vs-code-1a92850c8c6f>
+
+<https://mesonbuild.com/Wrapdb-projects.html#meson-wrapdb-packages>
+
 ## Building
 
 This project uses Meson with a Makefile shim to build.

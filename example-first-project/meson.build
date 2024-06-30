@@ -1,5 +1,6 @@
 project(
     'example-first-project',
+    'c',
     'cpp',
     default_options: [
         'debug=false', # Defaults to release build.
@@ -16,9 +17,14 @@ project(
     version: '0.1.0',
 )
 
-src_files = files('src' / 'main.cpp')
+src_dir = 'src'
+ext_dir = src_dir / 'ext'
 
-# If macOS.
+src_files = files(src_dir / 'main.cpp', ext_dir / 'glad' / 'src' / 'glad.c')
+
+inc_dirs = include_directories(src_dir, ext_dir / 'glad' / 'include')
+
+# For all.
 gl_dep = dependency('gl', required: true) # Installed by default in macOS.
 # glu_dep = dependency('glu', required: true) # Install mesa-glu via Homebrew.
 # glut_dep = dependency('glut', required: true) # Install freeglut via Homebrew.
@@ -30,13 +36,16 @@ gl_dep = dependency('gl', required: true) # Installed by default in macOS.
 glfw_proj = subproject('glfw')
 glfw_dep = glfw_proj.get_variable('glfw_dep')
 
+executable_name = 'example-first-project'
+
 APP = executable(
-    'app',
-    src_files,
+    executable_name,
+    sources: src_files,
+    include_directories: inc_dirs,
+    # link_args: [cpp_l_flags],
     dependencies: [
-        # gl_dep,
-        # glu_dep,
-        # glut_dep,
         glfw_dep,
     ],
+    cpp_args: [], # C flags are added directly by the check-and-apply-flags module.
+    c_args: [], # C flags are added directly by the check-and-apply-flags module.
 )
