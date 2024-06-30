@@ -48,7 +48,7 @@ int main()
 
     // Create a window / context using GLFW.
     //
-    GLFWwindow *window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Work-Through: Learn OpenGL", NULL, NULL);
+    GLFWwindow *window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Work-Through: Learn OpenGL  |  Hello Window!", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
