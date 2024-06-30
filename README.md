@@ -22,6 +22,10 @@ TODO
 
 <https://glad.dav1d.de/>
 
+Persistant link to the generated glad files:
+
+<https://glad.dav1d.de/generated/tmp5t7943mbglad/>
+
 <https://selamjie.medium.com/set-opengl-on-macos-with-vs-code-1a92850c8c6f>
 
 <https://mesonbuild.com/Wrapdb-projects.html#meson-wrapdb-packages>
