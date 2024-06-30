@@ -18,10 +18,14 @@ unless otherwise noted.
 
 ## Building
 
-TODO
+This project uses Meson with a Makefile shim to build.
+
+TODO Instructions.
 
 ## Notes
 
 Notes, tips, and tricks.
+
+TODO Info on getting the Kinect V2 to work with the examples in this repo.
 
 <https://github.com/OpenKinect/libfreenect2>

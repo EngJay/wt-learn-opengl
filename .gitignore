@@ -1,3 +1,7 @@
+# Meson wrap project files.
+/**/subprojects/*
+!/**/subprojects/*.wrap
+
 # Prerequisites
 *.d
 
