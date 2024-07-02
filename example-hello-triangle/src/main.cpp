@@ -208,7 +208,7 @@ int main()
         // Render.
         //
         // I changed this to a nicer color than the ugly green set in the book.
-        glClearColor(0.0f, 0.145f, 1.0f, 1.0f);
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Draw a triangle!
