@@ -224,7 +224,13 @@ int main()
         glfwSwapBuffers(window);
     }
 
-    // Clean up.
+    // Clean up after render loop has returned.
+    //
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteProgram(shaderProgram);
+
+    // Clean up after glfw.
     //
     glfwTerminate();
 
