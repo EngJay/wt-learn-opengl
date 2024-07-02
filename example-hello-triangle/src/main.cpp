@@ -91,6 +91,75 @@ int main()
         return -1;
     }
 
+    // Build shader program here for simplicity.
+    //
+    // Shaders are compiled and linked together into a kind of shader program,
+    // then used by OpenGL.
+    //
+    // Compile the vertex shader.
+    //
+    unsigned int vertexShader;
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glCompileShader(vertexShader);
+
+    // Ensure vertex shader compiled successfully.
+    //
+    int successful;
+    char infolog[512];
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &successful);
+    if (!successful)
+    {
+        glGetShaderInfoLog(vertexShader, 512, NULL, infolog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n"
+                  << infolog << std::endl;
+    }
+
+    // Compile the fragment shader.
+    //
+    unsigned int fragmentShader;
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glCompileShader(fragmentShader);
+
+    // Ensure fragment shader compiled successfully.
+    //
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &successful);
+    if (!successful)
+    {
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infolog);
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n"
+                  << infolog << std::endl;
+    }
+
+    // Now that we have shaders, we link them into a shader program.
+    //
+    unsigned int shaderProgram;
+    shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+
+    // Ensure the shader program built successfully.
+    //
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &successful);
+    if (!successful)
+    {
+        glGetProgramInfoLog(shaderProgram, 512, NULL, infolog);
+        std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n"
+                  << infolog << std::endl;
+    }
+
+    // Set the shader program in OpenGL.
+    //
+    glUseProgram(shaderProgram);
+
+    // Clean up - source objects are no longer needed.
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
+    // End build of shader program.
+
     // Set color for opengl to use to clear the buffer.
     //
     // NOTE: This was not included in the book example. Without this, the window
