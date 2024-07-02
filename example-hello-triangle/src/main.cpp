@@ -150,15 +150,43 @@ int main()
                   << infolog << std::endl;
     }
 
-    // Set the shader program in OpenGL.
-    //
-    glUseProgram(shaderProgram);
-
     // Clean up - source objects are no longer needed.
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
     // End build of shader program.
+
+    // Create the vertices and buffers necessary to render.
+
+    // clang-format off
+    float vertices[] = {
+        -0.5f, -0.5f, 0.0f, // Left.
+         0.5f, -0.5f, 0.0f, // Right.
+         0.0f,  0.5f, 0.0f  // Top.
+    };
+    // clang-format on
+
+    unsigned int VBO; // Vertex buffer object.
+    unsigned int VAO; // Vertex buffer array.
+
+    glGenVertexArrays(1, &VAO); // Generate a vertex buffer array.
+    glGenBuffers(1, &VBO);      // Generate a vertex buffer object.
+    glBindVertexArray(VAO);     // Bind the vertex array first.
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);                                        // Bind the vertex buffer object.
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // Set the buffer data using the array of vertices.
+
+    // Specify how the vertex data should be interpreted.
+    //
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+    glEnableVertexAttribArray(0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0); // Safely unbind since VBO is now registered as vertex attributes bound vertex.
+    glBindVertexArray(0);             // Safely unbind the VAO but this usually isn't necessary.
+
+    // Uncomment to display as wireframe.
+    //
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // Set color for opengl to use to clear the buffer.
     //
@@ -173,13 +201,25 @@ int main()
     //
     while (!glfwWindowShouldClose(window))
     {
+        // Call the input handler first.
+        //
         processInput(window);
 
+        // Render.
+        //
         // I changed this to a nicer color than the ugly green set in the book.
         glClearColor(0.0f, 0.145f, 1.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // Check events, then swap the front/back buffers.
+        // Draw a triangle!
+        //
+        glUseProgram(shaderProgram); // Set shader program in OpenGL.
+        glBindVertexArray(VAO);      // Binds the vertex array every frame.
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+        // glBindVertexArray(0); // NOTE: Unbinding isn't necessary every frame.
+
+        // Check events, then swap the front/back buffers via glfw.
+        //
         glfwPollEvents();
         glfwSwapBuffers(window);
     }
