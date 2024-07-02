@@ -188,13 +188,6 @@ int main()
     //
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    // Set color for opengl to use to clear the buffer.
-    //
-    // NOTE: This was not included in the book example. Without this, the window
-    //       flickered rapidly between red and black.
-    //
-    // glClear(GL_COLOR_BUFFER_BIT);
-
     // Rendering loop.
     //
     // An iteration of the loop is typically referred to as a frame.
@@ -239,6 +232,8 @@ int main()
 
 void processInput(GLFWwindow *window)
 {
+    // If escape key is pressed, close the window.
+    //
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
         glfwSetWindowShouldClose(window, true);
@@ -247,6 +242,8 @@ void processInput(GLFWwindow *window)
 
 void framebufferSizeCallback(GLFWwindow *window, int width, int height)
 {
+    // Whenever the window size changes, change the view port size to match.
+    //
     glViewport(0, 0, width, height);
     UNUSED(window);
 }
